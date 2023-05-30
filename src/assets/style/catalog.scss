@@ -1,0 +1,28 @@
+.catalog {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+}
+
+.category {
+  margin-right: 15px;
+  color: #84888f;
+  cursor: pointer;
+  &.active {
+    color: red;
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,42 @@
+.local-loader {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+svg.local-loader__icon {
+  width: 40px;
+  height: 40px;
+  x: 0;
+  y: 0;
+  viewbox: 0 0 40 40;
+}
+svg.local-loader__icon circle {
+  fill: transparent;
+  stroke: #19a68c;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 125.6;
+  transform-origin: 20px 20px 0;
+  animation: spinner 3s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+    stroke-dashoffset: 26.4;
+  }
+  50% {
+    transform: rotate(720deg);
+    stroke-dashoffset: 125.6;
+  }
+  100% {
+    transform: rotate(1080deg);
+    stroke-dashoffset: 26.4;
+  }
+}

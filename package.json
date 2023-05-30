@@ -1,0 +1,79 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
+    "history": "^5.3.0",
+    "materialize-css": "^1.0.0",
+    "moment": "^2.29.3",
+    "next": "^13.4.4",
+    "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
+    "react-dom": "^18.2.0",
+    "react-history": "^0.18.2",
+    "react-i18next": "^12.1.4",
+    "react-materialize": "^3.10.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.4.0",
+    "react-scripts": "^5.0.1",
+    "react-slider": "^2.0.4",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
+    "sass": "^1.54.9",
+    "type": "^2.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:5000",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.185",
+    "@types/materialize-css": "^1.0.11",
+    "@types/moment": "2.13.0",
+    "@types/node": "^16.18.34",
+    "@types/react": "^18.2.7",
+    "@types/react-datepicker": "^4.4.2",
+    "@types/react-dom": "^18.2.4",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-slider": "^1.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "lodash": "^4.17.21",
+    "prettier": "^2.7.1",
+    "redux-devtools-extension": "^2.13.9",
+    "typescript": "^4.9.5"
+  }
+}
