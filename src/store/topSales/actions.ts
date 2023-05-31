@@ -1,22 +1,27 @@
 import { Dispatch } from "react";
 import api from "../../api";
-import { ItemAction, ITEMS_REQUEST, ITEMS_SUCCESS, ITEMS_FAIL } from "./types";
+import {
+  TopSalesAction,
+  TOP_SALES_REQUEST,
+  TOP_SALES_SUCCESS,
+  TOP_SALES_FAIL,
+} from "./types";
 
 export function getTopSalesRequest() {
-  return (dispatch: Dispatch<ItemAction>): Promise<any> => {
-    dispatch({ type: ITEMS_REQUEST });
+  return (dispatch: Dispatch<TopSalesAction>): Promise<any> => {
+    dispatch({ type: TOP_SALES_REQUEST });
 
     return api
       .getTopSales()
       .then((response) => {
         dispatch({
-          type: ITEMS_SUCCESS,
+          type: TOP_SALES_SUCCESS,
           payload: response.data,
         });
       })
       .catch((response) => {
         dispatch({
-          type: ITEMS_FAIL,
+          type: TOP_SALES_FAIL,
           payload: response.message,
         });
       });

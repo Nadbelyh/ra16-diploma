@@ -12,7 +12,7 @@ import Waiter from "../waiter/waiter";
 interface StateFromProps {
   isFetching?: boolean;
   error?: string;
-  items: Item[];
+  topSales: Item[];
 }
 
 interface DispatchFromProps {
@@ -20,7 +20,7 @@ interface DispatchFromProps {
 }
 
 interface TopSalesState {
-  items: Item[];
+  topSales: Item[];
 }
 
 type TopSalesProps = StateFromProps & DispatchFromProps;
@@ -33,27 +33,27 @@ export class TopSalesPage extends React.Component<
     super(props);
 
     this.state = {
-      items: [],
+      topSales: [],
     };
   }
 
   componentDidMount() {
-    if (this.props.items === undefined) {
+    if (this.props.topSales === undefined) {
       this.props.getTopSales().then(() => {
         this.setState({
-          items: this.props.items,
+          topSales: this.props.topSales,
         });
       });
     } else {
       this.setState({
-        items: this.props.items,
+        topSales: this.props.topSales,
       });
     }
   }
 
   render() {
     const { isFetching } = this.props;
-    const { items } = this.state;
+    const { topSales } = this.state;
     return (
       <div>
         <Waiter show={isFetching} />
@@ -62,7 +62,7 @@ export class TopSalesPage extends React.Component<
           style={{ display: this.props.isFetching ? "none" : "" }}
         >
           <div className="items">
-            {items?.map((item) => (
+            {topSales?.map((item) => (
               <ItemCard item={item} key={item.id}></ItemCard>
             ))}
           </div>
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch: any): DispatchFromProps => ({
 const mapStateToProps = (state: AppState): StateFromProps => ({
   isFetching: state.topSales.isFetching,
   error: state.topSales.error,
-  items: state.topSales.data,
+  topSales: state.topSales.data,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

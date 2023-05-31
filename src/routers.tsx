@@ -22,7 +22,11 @@ export default class CustomRoutes extends React.Component<RoutesProps> {
     );
 
     defRoutes.push(
-      <Route key={`route_${key++}`} path="/catalog" element={<Catalog />} />
+      <Route
+        key={`route_${key++}`}
+        path="/catalog"
+        element={<Catalog isDisplayInput={true} />}
+      />
     );
 
     defRoutes.push(

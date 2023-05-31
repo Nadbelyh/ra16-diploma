@@ -16,7 +16,7 @@ export default class MainPage extends React.Component {
             </section>
             <section className="top-sales">
               <h2 className="text-center">Каталог</h2>
-              <Catalog></Catalog>
+              <Catalog isDisplayInput={false}></Catalog>
             </section>
           </div>
         </div>

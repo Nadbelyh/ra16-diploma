@@ -1,29 +1,29 @@
 import { AsyncState } from "../../models/common";
 import { Item } from "../../models/item";
 
-export interface ItemState extends AsyncState<Item[]> {
+export interface TopSalesState extends AsyncState<Item[]> {
   data?: Item[];
 }
 
-export const ITEMS_FAIL = "ITEMS_FAIL";
-export const ITEMS_REQUEST = "ITEMS_REQUEST";
-export const ITEMS_SUCCESS = "ITEMS_SUCCESS";
+export const TOP_SALES_FAIL = "TOP_SALES_FAIL";
+export const TOP_SALES_REQUEST = "TOP_SALES_REQUEST";
+export const TOP_SALES_SUCCESS = "TOP_SALES_SUCCESS";
 
-interface ErrorItemAction {
-  type: typeof ITEMS_FAIL;
+interface ErrorTopSalesAction {
+  type: typeof TOP_SALES_FAIL;
   payload: string;
 }
 
-interface RequestItemAction {
-  type: typeof ITEMS_REQUEST;
+interface RequestTopSalesAction {
+  type: typeof TOP_SALES_REQUEST;
 }
 
-interface SuccessItemAction {
-  type: typeof ITEMS_SUCCESS;
+interface SuccessTopSalesAction {
+  type: typeof TOP_SALES_SUCCESS;
   payload: Item[];
 }
 
-export type ItemAction =
-  | RequestItemAction
-  | SuccessItemAction
-  | ErrorItemAction;
+export type TopSalesAction =
+  | RequestTopSalesAction
+  | SuccessTopSalesAction
+  | ErrorTopSalesAction;

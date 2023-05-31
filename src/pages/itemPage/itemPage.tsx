@@ -133,7 +133,7 @@ export class ItemPage extends React.Component<ItemPageProps, ItemPageState> {
               src={item?.images[0]}
               className="img-fluid"
               alt=""
-              style={{ width: "40%", alignSelf: "flex-start" }}
+              style={{ width: "40%", alignSelf: "flex-end" }}
             />
             <div
               style={{

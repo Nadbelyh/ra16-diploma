@@ -19,6 +19,10 @@ interface StateFromProps {
   error?: string;
 }
 
+interface CatalogProp {
+  isDisplayInput: boolean;
+}
+
 interface DispatchFromProps {
   getItems: (param: string) => Promise<any>;
 }
@@ -27,12 +31,11 @@ interface CatalogState {
   categories: Category[];
   items: Item[];
   selectCategoryId: number;
-  isDisplayInput: boolean;
   inputText: string;
   isDisplayOffsetButton: boolean;
 }
 
-type CatalogProps = StateFromProps & DispatchFromProps;
+type CatalogProps = StateFromProps & DispatchFromProps & CatalogProp;
 
 export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
   constructor(props: CatalogProps) {
@@ -44,7 +47,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
       categories: [],
       items: [],
       selectCategoryId: 0,
-      isDisplayInput: inputText !== "",
       inputText: inputText,
       isDisplayOffsetButton: true,
     };
@@ -69,7 +71,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     this.props.getItems(param).then(() => {
       this.setState({
         items: this.props.items,
-        isDisplayInput: param !== "",
       });
     });
   }
@@ -177,7 +178,7 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
             placeholder="Поиск"
             value={this.state.inputText}
             style={{
-              display: this.state.isDisplayInput ? "" : "none",
+              display: this.props.isDisplayInput ? "" : "none",
             }}
           ></input>
           <div className="filter">
