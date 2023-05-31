@@ -1,13 +1,13 @@
 import * as React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Catalog from "./pages/catalog/catalog";
 import { DefaultLayout } from "./components/layout/default";
 import Main from "./pages/main/main";
 import About from "./pages/about/about";
 import Contacts from "./pages/contacts/contacts";
 import ItemPage from "./pages/itemPage/itemPage";
-import { ErrorPage } from "./pages/error/404error";
-import { CartPage } from "./pages/cart/cart";
+import ErrorPage from "./pages/error/404error";
+import CartPage from "./pages/cart/cart";
 
 interface RoutesProps {}
 
@@ -17,15 +17,8 @@ export default class CustomRoutes extends React.Component<RoutesProps> {
     const defRoutes: JSX.Element[] = [];
     let key = 1;
 
-    routes.push(
-      <Route
-        key={`route_${key++}`}
-        path="/"
-        element={<Navigate replace to="/main" />}
-      />
-    );
     defRoutes.push(
-      <Route key={`route_${key++}`} path="/main" element={<Main />} />
+      <Route key={`route_${key++}`} path="/" element={<Main />} />
     );
 
     defRoutes.push(

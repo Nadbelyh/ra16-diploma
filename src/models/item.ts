@@ -14,10 +14,19 @@ export interface Item {
   sizes: Size[];
   isSelected?: boolean;
   count: number;
-  selectedSize: number;
+  selectedSize: string;
 }
 
 export interface Size {
   size: string;
   available: true;
+}
+
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  count: number;
+  total: number;
+  size: string;
 }

@@ -1,8 +1,6 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
 import { Item } from "../../models/item";
-import { AppState } from "../../store";
 import "../../assets/style/itemCard.scss";
 import history from "../../history";
 
@@ -19,13 +17,12 @@ interface StateFromProps {
   error?: string;
 }
 
-interface DispatchFromProps {
-  order?: (id: number) => Promise<any>;
-}
+type ObjectProps = ItemCardProps & StateFromProps;
 
-type ObjectProps = ItemCardProps & StateFromProps & DispatchFromProps;
-
-export class ItemCard extends React.Component<ObjectProps, ItemCardState> {
+export default class ItemCard extends React.Component<
+  ObjectProps,
+  ItemCardState
+> {
   constructor(props: ObjectProps) {
     super(props);
     this.state = {
@@ -33,10 +30,7 @@ export class ItemCard extends React.Component<ObjectProps, ItemCardState> {
     };
   }
 
-  // componentDidMount() {}
-
   goItemPage = (id: number): void => {
-    //this.props.order(id);
     history.push(`/catalog/${id}`);
   };
 
@@ -45,29 +39,19 @@ export class ItemCard extends React.Component<ObjectProps, ItemCardState> {
     return (
       <div className="itemCard">
         <img src={item?.images[0]} className="image"></img>
-        <div>{item.title}</div>
-        <div>{`${item.price} руб.`}</div>
+        <div style={{ marginLeft: "20px", flexGrow: 1 }}>{item.title}</div>
+        <div
+          style={{ marginLeft: "20px", flexGrow: 1 }}
+        >{`${item.price} руб.`}</div>
         <button
+          style={{ marginLeft: "20px", flexGrow: 0, marginBottom: "10px" }}
           onClick={() => {
             this.goItemPage(item.id);
           }}
         >
           Заказать
         </button>
-        {/* <NavLink to={`catalog/${item.id}`} className="button">
-          Заказать
-        </NavLink> */}
       </div>
     );
   }
 }
-
-const mapDispatchToProps = (dispatch): DispatchFromProps => ({});
-
-const mapStateToProps = (state: AppState): StateFromProps => ({
-  //   isFetching: state.objectList.isFetching || state.reports.isFetching,
-  //   error: state.objectList.error || state.reports.error,
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(ItemCard);

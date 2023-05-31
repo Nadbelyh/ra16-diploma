@@ -8,11 +8,6 @@ const getClient = () => {
       return response;
     },
     (error: any) => {
-      const status = [403, 404, 500];
-      if (status.indexOf(error.response.status)) {
-        // window.location.assign(`${window.location.origin}/#/error`);
-      }
-
       return Promise.reject(error);
     }
   );

@@ -21,7 +21,7 @@
   width: 200px;
   height: 60px;
   background-image: url("../../assets/images/header-logo.png");
-  margin-right: 20px;
+  margin: 0px 20px;
 }
 
 .search {
@@ -63,4 +63,22 @@ a.tabs__menu__link.active {
   cursor: default;
   font-weight: 600;
   color: #2e2c33;
+}
+
+.searchInput {
+  margin-top: 8px !important;
+  width: 200px !important;
+  height: 35px !important;
+  border: 0.7px solid #d1d1d1 !important;
+  border-radius: 25px !important;
+  text-overflow: ellipsis !important;
+  padding-right: 25px !important;
+  caret-color: #2e2c33 !important;
+  padding-left: 30px !important;
+  &:active {
+    border: 0.7px solid #d1d1d1 !important;
+  }
+  &:focus {
+    border: 0.7px solid #d1d1d1 !important;
+  }
 }

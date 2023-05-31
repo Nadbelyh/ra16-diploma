@@ -3,42 +3,100 @@ import withRouter from "../../withRouter";
 
 import { AppState } from "../../store";
 import { connect } from "react-redux";
-import { Item } from "../../models/item";
+import { CartItem } from "../../models/item";
 import Banner from "../../components/banner/banner";
+import { deleteCartItemRequest } from "../../store/cart/actions";
+import { isEqual } from "lodash";
+import { Order, OrderItem, Owner } from "../../models/order";
+import history from "../../history";
+import { sendOrderRequest } from "../../store/order/actions";
+import Waiter from "../../components/waiter/waiter";
 
-interface StateFromProps {
-  items?: Item[];
+interface DispatchFromProps {
+  deleteCartItem?: (item: CartItem) => Promise<any>;
+  sendOrder?: (order: Order) => Promise<any>;
 }
 
-interface DispatchFromProps {}
+interface StateFromProps {
+  cartItems?: CartItem[];
+  isFetching?: boolean;
+  error?: string;
+}
 
 interface CartState {
   price: number;
+  cartItems?: CartItem[];
+  owner?: Owner;
 }
 
-type CartProps = StateFromProps & DispatchFromProps;
+type CartProps = DispatchFromProps & StateFromProps;
 
 export class CartPage extends React.Component<CartProps, CartState> {
   constructor(props: CartProps) {
     super(props);
 
+    const owner = { phone: "", address: "" };
     this.state = {
-      price: 0,
+      price: this.props.cartItems.reduce((p, c) => p + c.total, 0),
+      cartItems: this.props.cartItems,
+      owner: owner,
     };
   }
 
+  componentDidUpdate(prevProps: StateFromProps) {
+    if (!isEqual(this.props.cartItems, prevProps.cartItems)) {
+      this.setState({
+        cartItems: this.props.cartItems,
+        price: this.props.cartItems.reduce((p, c) => p + c.total, 0),
+      });
+    }
+  }
+
+  onDeleteCartItem = (item: CartItem): void => {
+    this.props.deleteCartItem(item);
+  };
+
+  onOrder = async (): Promise<void> => {
+    const items = [] as OrderItem[];
+    for (let i = 0; i < this.state.cartItems.length; i++) {
+      const item = this.state.cartItems[i];
+      const newItem = {} as OrderItem;
+      newItem.id = item.price;
+      newItem.count = item.count;
+      newItem.price = item.price;
+      items.push(newItem);
+    }
+    const order = {} as Order;
+    order.owner = this.state.owner;
+    order.items = items;
+
+    this.props.sendOrder(order);
+  };
+
+  onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.currentTarget.value;
+    const id = event.currentTarget.id;
+    const { owner } = this.state;
+    owner[id] = value;
+
+    this.setState({
+      owner: owner,
+    });
+  };
+
   render() {
-    const { items } = this.props;
+    const { cartItems } = this.state;
     const { price } = this.state;
     return (
       <div>
         <div className="row">
+          <Waiter show={this.props.isFetching} />
           <div className="col">
             <Banner></Banner>
           </div>
           <section className="cart">
             <h2 className="text-center">Корзина</h2>
-            {items?.length ? (
+            {cartItems?.length ? (
               <table className="table table-bordered">
                 <thead>
                   <tr>
@@ -52,22 +110,22 @@ export class CartPage extends React.Component<CartProps, CartState> {
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((item, i) => (
+                  {cartItems?.map((item, i) => (
                     <tr key={item.id}>
                       <td scope="row">{i + 1}</td>
                       <td>
                         <a href="/products/1.html">{item.title}</a>
                       </td>
-                      <td>{item.selectedSize}</td>
+                      <td>{item.size}</td>
                       <td>{item.count}</td>
                       <td>{item.price}</td>
                       <td>{item.price && item.price * item.count}</td>
                       <td>
                         <button
-                          className="btn btn-outline-danger btn-sm"
-                          // onClick={() => {
-                          //   deleteHandle(item.id, item.sizes);
-                          // }}
+                          className=""
+                          onClick={() => {
+                            this.onDeleteCartItem(item);
+                          }}
                         >
                           Удалить
                         </button>
@@ -86,10 +144,10 @@ export class CartPage extends React.Component<CartProps, CartState> {
               <>
                 <h1>У вас нет покупок</h1>
                 <button
-                  className="btn btn-danger btn-block btn-lg"
-                  // onClick={() => {
-                  //   navigate("/catalog");
-                  // }}
+                  style={{ width: "200px" }}
+                  onClick={() => {
+                    history.push(`/catalog`);
+                  }}
                 >
                   Вернуться в католог
                 </button>
@@ -107,6 +165,8 @@ export class CartPage extends React.Component<CartProps, CartState> {
                   <label htmlFor="phone">Телефон</label>
                   <input
                     className="form-control"
+                    value={this.state.owner?.phone}
+                    onChange={this.onChangeInput}
                     id="phone"
                     placeholder="Ваш телефон"
                   />
@@ -115,7 +175,9 @@ export class CartPage extends React.Component<CartProps, CartState> {
                   <label htmlFor="address">Адрес доставки</label>
                   <input
                     className="form-control"
+                    value={this.state.owner?.address}
                     id="address"
+                    onChange={this.onChangeInput}
                     placeholder="Адрес доставки"
                   />
                 </div>
@@ -129,7 +191,12 @@ export class CartPage extends React.Component<CartProps, CartState> {
                     Согласен с правилами доставки
                   </label>
                 </div>
-                <button type="submit" className="btn btn-outline-secondary">
+                <button
+                  type="submit"
+                  onClick={() => {
+                    this.onOrder();
+                  }}
+                >
                   Оформить
                 </button>
               </form>
@@ -141,9 +208,16 @@ export class CartPage extends React.Component<CartProps, CartState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: any): DispatchFromProps => ({});
+const mapDispatchToProps = (dispatch: any): DispatchFromProps => ({
+  deleteCartItem: (item: CartItem) => dispatch(deleteCartItemRequest(item)),
+  sendOrder: (order: Order) => dispatch(sendOrderRequest(order)),
+});
 
-const mapStateToProps = (state: AppState): StateFromProps => ({});
+const mapStateToProps = (state: AppState): StateFromProps => ({
+  cartItems: state.cartItems.data,
+  isFetching: state.order.isFetching,
+  error: state.order.error,
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 export default withRouter(connector(CartPage));

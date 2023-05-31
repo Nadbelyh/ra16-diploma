@@ -1,8 +1,9 @@
-import { AxiosPromise, CancelTokenSource } from "axios";
+import { AxiosPromise } from "axios";
 
 import http from "../services/http";
 import { Category } from "../models/category";
 import { Item } from "../models/item";
+import { Order } from "../models/order";
 
 export default {
   getTopSales(): AxiosPromise {
@@ -11,18 +12,14 @@ export default {
   getCategories(): AxiosPromise<Category[]> {
     return http.get(`http://localhost:7070/api/categories`);
   },
-  getItems(): AxiosPromise<Item[]> {
-    return http.get(`http://localhost:7070/api/items`);
-  },
-  getItemsByCategoryId(id: number): AxiosPromise {
-    return http.get(`http://localhost:7070/api/items?categoryId=${id}`);
-  },
-  getItemsByCategoryIdAndOffset(id: number, offset: number): AxiosPromise {
-    return http.get(
-      `http://localhost:7070/api/items?categoryId=${id}&offset=${offset}`
-    );
+  getItems(param: string): AxiosPromise<Item[]> {
+    return http.get(`http://localhost:7070/api/items?${param}`);
   },
   getItemById(id: number): AxiosPromise {
     return http.get(`http://localhost:7070/api/items/${id}`);
+  },
+  order(order: Order): AxiosPromise {
+    const data = order === null || order === undefined ? {} : order;
+    return http.post("http://localhost:7070/api/order", data);
   },
 };

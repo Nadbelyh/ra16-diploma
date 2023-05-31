@@ -1,28 +1,10 @@
 import * as React from "react";
-import withRouter from "../../withRouter";
-
-import { AppState } from "../../store";
-import { connect } from "react-redux";
 import Banner from "../../components/banner/banner";
 
-interface StateFromProps {}
-
-interface DispatchFromProps {}
-
-interface AboutState {}
-
-type AboutProps = StateFromProps & DispatchFromProps;
-
-export class AboutPage extends React.Component<AboutProps, AboutState> {
-  constructor(props: AboutProps) {
-    super(props);
-
-    this.state = {};
-  }
-
+export default class AboutPage extends React.Component {
   render() {
     return (
-      <main className="container">
+      <div>
         <div className="row">
           <div className="col">
             <Banner></Banner>
@@ -75,14 +57,7 @@ export class AboutPage extends React.Component<AboutProps, AboutState> {
             </section>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
-
-const mapDispatchToProps = (dispatch: any): DispatchFromProps => ({});
-
-const mapStateToProps = (state: AppState): StateFromProps => ({});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export default withRouter(connector(AboutPage));

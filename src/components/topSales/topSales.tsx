@@ -5,7 +5,7 @@ import "../../assets/style/catalog.scss";
 import { AppState } from "../../store";
 import { connect } from "react-redux";
 import { Item } from "../../models/item";
-import { ItemCard } from "../../components/itemCard/itemCard";
+import ItemCard from "../../components/itemCard/itemCard";
 import { getTopSalesRequest } from "../../store/topSales/actions";
 import Waiter from "../waiter/waiter";
 
@@ -44,6 +44,10 @@ export class TopSalesPage extends React.Component<
           items: this.props.items,
         });
       });
+    } else {
+      this.setState({
+        items: this.props.items,
+      });
     }
   }
 
@@ -52,12 +56,13 @@ export class TopSalesPage extends React.Component<
     const { items } = this.state;
     return (
       <div>
-        <div className="row">
-          <Waiter show={isFetching} />
-        </div>
-        <div className="topSales">
+        <Waiter show={isFetching} />
+        <div
+          className="topSales"
+          style={{ display: this.props.isFetching ? "none" : "" }}
+        >
           <div className="items">
-            {items.map((item) => (
+            {items?.map((item) => (
               <ItemCard item={item} key={item.id}></ItemCard>
             ))}
           </div>

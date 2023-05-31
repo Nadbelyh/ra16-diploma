@@ -1,34 +1,34 @@
 import {
-  ItemState,
-  ItemAction,
-  ITEM_FAIL,
-  ITEM_REQUEST,
-  ITEM_SUCCESS,
+  OrderState,
+  OrderAction,
+  ORDER_FAIL,
+  ORDER_REQUEST,
+  ORDER_SUCCESS,
 } from "./types";
 
-const initialState: ItemState = {
+const initialState: OrderState = {
   isFetching: false,
   data: undefined,
   error: undefined,
 };
 
-export default function ItemReducer(
-  state: ItemState = initialState,
-  action: ItemAction
-): ItemState {
+export default function OrderReducer(
+  state: OrderState = initialState,
+  action: OrderAction
+): OrderState {
   switch (action.type) {
-    case ITEM_FAIL:
+    case ORDER_FAIL:
       return {
         ...state,
         isFetching: false,
         error: action.payload,
       };
-    case ITEM_REQUEST:
+    case ORDER_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ITEM_SUCCESS:
+    case ORDER_SUCCESS:
       return {
         ...state,
         data: action.payload,

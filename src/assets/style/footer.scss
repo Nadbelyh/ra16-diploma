@@ -1,6 +1,4 @@
 .footer {
-  //position: absolute;
-  //bottom: 0;
   background-color: #f8f9fa;
   width: 100%;
   height: 180px;
@@ -15,6 +13,8 @@
   display: flex;
   flex-direction: column;
   width: 20%;
+  margin-top: 30px;
+  flex-grow: 1;
 }
 
 .footer_menu {
@@ -25,17 +25,29 @@
 .pay {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  font-size: 12px;
+  width: 30%;
+  margin-top: 30px;
+  flex-grow: 4;
 }
 
 .footer_sprite {
-  width: 200px;
-  height: 80px;
-  background-image: url("../../assets/images/footer-sprite.png");
+  width: 300px;
+  height: 40px;
+  background-image: url("../../assets/images/footer-pay.png");
   margin-right: 20px;
+}
+
+.footer_media {
+  width: 95px;
+  height: 40px;
+  background-image: url("../../assets/images/footer-media.png");
 }
 
 .contacts {
   display: flex;
   flex-direction: column;
+  align-items: end;
+  margin-top: 30px;
+  flex-grow: 1;
 }

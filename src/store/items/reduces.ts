@@ -1,39 +1,39 @@
 import {
-  ItemState,
-  ItemAction,
-  ITEM_FAIL,
-  ITEM_REQUEST,
-  ITEM_SUCCESS,
+  ItemsState,
+  ItemsAction,
+  ITEMS_SUCCESS,
+  ITEMS_REQUEST,
+  ITEMS_FAIL,
 } from "./types";
 
-const initialState: ItemState = {
+const initialState: ItemsState = {
   isFetching: false,
   data: undefined,
   error: undefined,
 };
 
-export default function ItemReducer(
-  state: ItemState = initialState,
-  action: ItemAction
-): ItemState {
+export default function topSalesReducer(
+  state: ItemsState = initialState,
+  action: ItemsAction
+): ItemsState {
   switch (action.type) {
-    case ITEM_FAIL:
+    case ITEMS_FAIL:
       return {
         ...state,
         isFetching: false,
         error: action.payload,
       };
-    case ITEM_REQUEST:
+    case ITEMS_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ITEM_SUCCESS:
+    case ITEMS_SUCCESS:
       return {
         ...state,
         data: action.payload,
         isFetching: false,
-        error: null,
+        error: undefined,
       };
     default:
       return state;
