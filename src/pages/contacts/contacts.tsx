@@ -7,7 +7,7 @@ export default class ContactsPage extends React.Component {
       <div>
         <div className="row">
           <div className="col">
-            <Banner></Banner>
+            <Banner />
             <section className="top-sales">
               <h2 className="text-center">Контакты</h2>
               <p>

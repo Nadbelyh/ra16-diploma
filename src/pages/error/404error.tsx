@@ -7,7 +7,7 @@ export default class ErrorPage extends React.Component {
       <div>
         <div className="row">
           <div className="col">
-            <Banner></Banner>
+            <Banner />
           </div>
           <section className="top-sales">
             <h2 className="text-center">Страница не найдена</h2>

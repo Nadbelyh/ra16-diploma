@@ -37,14 +37,12 @@ export default class ItemCard extends React.Component<
   render() {
     const { item } = this.props;
     return (
-      <div className="itemCard">
-        <img src={item?.images[0]} className="image"></img>
-        <div style={{ marginLeft: "20px", flexGrow: 1 }}>{item.title}</div>
-        <div
-          style={{ marginLeft: "20px", flexGrow: 1 }}
-        >{`${item.price} руб.`}</div>
+      <div className="item-card">
+        <img src={item?.images[0]} className="image" />
+        <div className="item-card__title">{item.title}</div>
+        <div className="item-card__title">{`${item.price} руб.`}</div>
         <button
-          style={{ marginLeft: "20px", flexGrow: 0, marginBottom: "10px" }}
+          className="item-card__button"
           onClick={() => {
             this.goItemPage(item.id);
           }}

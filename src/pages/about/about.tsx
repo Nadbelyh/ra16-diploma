@@ -7,7 +7,7 @@ export default class AboutPage extends React.Component {
       <div>
         <div className="row">
           <div className="col">
-            <Banner></Banner>
+            <Banner />
             <section className="top-sales">
               <h2 className="text-center">О магазине</h2>
               <p>

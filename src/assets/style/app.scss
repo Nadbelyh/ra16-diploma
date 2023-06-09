@@ -334,6 +334,11 @@ button {
   width: 100%;
 }
 
+.item-page__img-fluid {
+  width: 40%;
+  align-self: flex-end;
+}
+
 .banner-header {
   position: absolute;
   z-index: 5;
@@ -376,6 +381,10 @@ button {
   border-radius: 2px;
 }
 
+.first {
+  margin-left: 20px;
+}
+
 .countLable {
   border-top: 1px solid #6c757d;
   border-bottom: 1px solid #6c757d;
@@ -384,6 +393,7 @@ button {
 
 .orderButton {
   height: 40px;
+  width: 100%;
   background-color: #ff7982;
   border-color: #ff7982;
   color: #fff;
@@ -424,6 +434,8 @@ thead {
   border: 1px solid #dfe3e7;
   border-radius: 10px;
   padding: 10px;
+  max-width: 30rem;
+  margin: 0 auto;
 }
 
 .card-body {
@@ -472,4 +484,80 @@ input {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem;
+}
+
+.search-container {
+  position: relative;
+  height: 100%;
+  margin-top: 30px;
+}
+
+.search {
+  position: absolute;
+  right: 0;
+  top: 9px;
+}
+
+.banner-container {
+  width: 100%;
+}
+
+.default-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.default-layout-stretch {
+  flex-grow: 1;
+}
+
+.default-layout-div {
+  flex-grow: 0;
+}
+
+.back-button {
+  width: 200px;
+}
+
+.item-page__container {
+  padding: 20px;
+}
+
+.item-page__title {
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.item-page__info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-page__table {
+  width: 60%;
+}
+
+.item-page__sizes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.item-page__count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: center;
 }

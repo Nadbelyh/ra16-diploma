@@ -20,27 +20,15 @@ const getClient = () => {
  */
 export default {
   get(url: string, config?: AxiosRequestConfig | undefined) {
-    return getClient()
-      .get(url, config)
-      .then((response) => Promise.resolve(response))
-      .catch((error) => Promise.reject(error));
+    return getClient().get(url, config);
   },
   delete(url: string, config?: AxiosRequestConfig | undefined) {
-    return getClient()
-      .delete(url, config)
-      .then((response) => Promise.resolve(response))
-      .catch((error) => Promise.reject(error));
+    return getClient().delete(url, config);
   },
   post(url: string, data?: any, config?: AxiosRequestConfig | undefined) {
-    return getClient()
-      .post(url, data, config)
-      .then((response) => Promise.resolve(response))
-      .catch((error) => Promise.reject(error));
+    return getClient().post(url, data, config);
   },
   put(url: string, data?: any, config?: AxiosRequestConfig | undefined) {
-    return getClient()
-      .put(url, data, config)
-      .then((response) => Promise.resolve(response))
-      .catch((error) => Promise.reject(error));
+    return getClient().put(url, data, config);
   },
 };

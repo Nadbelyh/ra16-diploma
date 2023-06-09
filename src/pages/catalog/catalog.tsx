@@ -43,6 +43,7 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     const params = new URLSearchParams(window.location.search);
     const inputText = params.get("inputText");
 
+    console.log(111);
     this.state = {
       categories: [],
       items: [],
@@ -65,6 +66,7 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     });
 
     const inputText = this.state.inputText;
+    console.log(111);
 
     const param =
       inputText !== "" && inputText !== null ? `q=${this.state.inputText}` : "";
@@ -73,24 +75,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
         items: this.props.items,
       });
     });
-  }
-
-  componentDidUpdate(prevProps: CatalogProps) {
-    if (!isEqual(this.props, prevProps)) {
-      const params = new URLSearchParams(window.location.search);
-      const inputText = params.get("inputText");
-      if (inputText !== this.state.inputText) {
-        this.setState(
-          {
-            items: this.props.items,
-            inputText: inputText,
-          },
-          () => {
-            this.getItems();
-          }
-        );
-      }
-    }
   }
 
   selectCategory = (id: number): void => {
@@ -115,6 +99,7 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
 
   getItems = (): void => {
     let param: string;
+    console.log(this.state.inputText);
     if (this.state.selectCategoryId === 0) {
       param =
         this.state.inputText !== "" && this.state.inputText !== null
@@ -164,51 +149,64 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     });
   };
 
+  keyEvent = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === "Enter") {
+      this.getItems();
+    }
+  };
+
+  onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.currentTarget.value;
+    this.setState({
+      inputText: value,
+    });
+  };
+
   render() {
     return (
       <div>
         <Waiter show={this.props.isFetching} />
-        <div
-          className="catalog"
-          style={{ display: this.props.isFetching ? "none" : "" }}
-        >
-          <input
-            className="searchCatalogInput"
-            readOnly={true}
-            placeholder="Поиск"
-            value={this.state.inputText}
-            style={{
-              display: this.props.isDisplayInput ? "" : "none",
-            }}
-          ></input>
-          <div className="filter">
-            {this.state.categories?.map((category) => (
-              <div
-                key={category.id}
-                className={category.isSelected ? "category active" : "category"}
-                onClick={() => this.selectCategory(category.id)}
+        {!this.props.isFetching && (
+          <div className="catalog">
+            {this.props.isDisplayInput && (
+              <input
+                className="searchCatalogInput"
+                placeholder="Поиск"
+                onChange={this.onChangeInput}
+                onKeyDown={this.keyEvent}
+                value={this.state.inputText}
+              />
+            )}
+            <div className="filter">
+              {this.state.categories?.map((category) => (
+                <div
+                  key={category.id}
+                  className={
+                    category.isSelected ? "category active" : "category"
+                  }
+                  onClick={() => this.selectCategory(category.id)}
+                >
+                  {category.title}
+                </div>
+              ))}
+            </div>
+            <div className="items">
+              {this.state.items?.map((item, index) => (
+                <ItemCard item={item} key={index} />
+              ))}
+            </div>
+            {this.state.isDisplayOffsetButton && (
+              <button
+                className="back-button"
+                onClick={() => {
+                  this.getOffset();
+                }}
               >
-                {category.title}
-              </div>
-            ))}
+                Загрузить еще
+              </button>
+            )}
           </div>
-          <div className="items">
-            {this.state.items?.map((item, index) => (
-              <ItemCard item={item} key={index}></ItemCard>
-            ))}
-          </div>
-          <button
-            style={{
-              width: "200px",
-              display: this.state.isDisplayOffsetButton ? "" : "none",
-            }}
-            onClick={() => {
-              this.getOffset();
-            }}
-          >
-            Загрузить еще
-          </button>
-        </div>
+        )}
       </div>
     );
   }

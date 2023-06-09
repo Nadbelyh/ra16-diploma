@@ -57,16 +57,15 @@ export class TopSalesPage extends React.Component<
     return (
       <div>
         <Waiter show={isFetching} />
-        <div
-          className="topSales"
-          style={{ display: this.props.isFetching ? "none" : "" }}
-        >
-          <div className="items">
-            {topSales?.map((item) => (
-              <ItemCard item={item} key={item.id}></ItemCard>
-            ))}
+        {!this.props.isFetching && (
+          <div className="topSales">
+            <div className="items">
+              {topSales?.map((item) => (
+                <ItemCard item={item} key={item.id} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

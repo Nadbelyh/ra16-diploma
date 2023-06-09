@@ -27,6 +27,5 @@ export interface CartItem {
   title: string;
   price: number;
   count: number;
-  total: number;
   size: string;
 }

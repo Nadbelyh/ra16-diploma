@@ -37,7 +37,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
 
     const owner = { phone: "", address: "" };
     this.state = {
-      price: this.props.cartItems.reduce((p, c) => p + c.total, 0),
+      price: this.props.cartItems.reduce((p, c) => p + c.price * c.count, 0),
       cartItems: this.props.cartItems,
       owner: owner,
     };
@@ -47,7 +47,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
     if (!isEqual(this.props.cartItems, prevProps.cartItems)) {
       this.setState({
         cartItems: this.props.cartItems,
-        price: this.props.cartItems.reduce((p, c) => p + c.total, 0),
+        price: this.props.cartItems.reduce((p, c) => p + c.price * c.count, 0),
       });
     }
   }
@@ -92,7 +92,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
         <div className="row">
           <Waiter show={this.props.isFetching} />
           <div className="col">
-            <Banner></Banner>
+            <Banner />
           </div>
           <section className="cart">
             <h2 className="text-center">Корзина</h2>
@@ -144,7 +144,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
               <>
                 <h1>У вас нет покупок</h1>
                 <button
-                  style={{ width: "200px" }}
+                  className="back-button"
                   onClick={() => {
                     history.push(`/catalog`);
                   }}
@@ -156,10 +156,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
           </section>
           <section className="order">
             <h2 className="text-center">Оформить заказ</h2>
-            <div
-              className="card"
-              style={{ maxWidth: "30rem", margin: "0 auto" }}
-            >
+            <div className="card">
               <form className="card-body">
                 <div className="form-group">
                   <label htmlFor="phone">Телефон</label>

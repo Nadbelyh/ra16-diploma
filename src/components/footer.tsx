@@ -32,8 +32,8 @@ export default class Footer extends React.Component {
         </div>
         <div className="pay">
           <div className="label">Принимаем к оплате:</div>
-          <div className="footer_sprite"></div>
-          <div style={{ maxWidth: "320px" }}>
+          <div className="footer_sprite" />
+          <div className="footer_info">
             2009-2019 © BosaNoga.ru — модный интернет-магазин обуви и
             аксессуаров. Все права защищены. Доставка по всей России!
           </div>
@@ -47,7 +47,7 @@ export default class Footer extends React.Component {
           <a className="footer-contacts-email" href="mailto:office@bosanoga.ru">
             office@bosanoga.ru
           </a>
-          <div className="footer_media"></div>
+          <div className="footer_media" />
         </div>
       </div>
     );

@@ -73,9 +73,8 @@ export class Header extends React.Component<StateFromProps, HeaderState> {
               onClick={() => {
                 history.push(`/`);
               }}
-            ></div>
+            />
           </li>
-          <li style={{ marginBottom: "20px" }}></li>
 
           <li>
             <NavLink to="/" className={this.getStyle}>
@@ -98,38 +97,27 @@ export class Header extends React.Component<StateFromProps, HeaderState> {
             </NavLink>
           </li>
         </ul>
-        <div
-          style={{
-            position: "relative",
-            height: "100%",
-            marginTop: "30px",
-          }}
-        >
-          <input
-            className="searchInput"
-            value={this.state.inputText}
-            onChange={this.onChangeInput}
-            placeholder="Поиск"
-            style={{
-              display: this.state.isDisplayInput ? "" : "none",
-            }}
-          ></input>
+        <div className="search-container">
+          {this.state.isDisplayInput && (
+            <input
+              className="searchInput"
+              value={this.state.inputText}
+              onChange={this.onChangeInput}
+              placeholder="Поиск"
+            />
+          )}
           <div
             className="search"
-            style={{ position: "absolute", right: "0", top: "9px" }}
             onClick={() => {
               this.onClickSearch();
             }}
-          ></div>
+          />
         </div>
         <NavLink to="/cart">
-          <div className="cartImage"></div>
-          <div
-            className="cartCount"
-            style={{ display: this.state.cartCount === 0 ? "none" : "" }}
-          >
-            {this.state.cartCount}
-          </div>
+          <div className="cartImage" />
+          {this.state.cartCount !== 0 && (
+            <div className="cartCount">{this.state.cartCount}</div>
+          )}
         </NavLink>
       </div>
     );

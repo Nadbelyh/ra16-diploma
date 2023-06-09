@@ -9,14 +9,14 @@ export default class MainPage extends React.Component {
       <div>
         <div className="row">
           <div className="col">
-            <Banner></Banner>
+            <Banner />
             <section className="top-sales">
               <h2 className="text-center">Хиты продаж!</h2>
-              <TopSales></TopSales>
+              <TopSales />
             </section>
             <section className="top-sales">
               <h2 className="text-center">Каталог</h2>
-              <Catalog isDisplayInput={false}></Catalog>
+              <Catalog isDisplayInput={false} />
             </section>
           </div>
         </div>
