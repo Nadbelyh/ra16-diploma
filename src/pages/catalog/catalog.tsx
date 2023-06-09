@@ -43,7 +43,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     const params = new URLSearchParams(window.location.search);
     const inputText = params.get("inputText");
 
-    console.log(111);
     this.state = {
       categories: [],
       items: [],
@@ -66,7 +65,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
     });
 
     const inputText = this.state.inputText;
-    console.log(111);
 
     const param =
       inputText !== "" && inputText !== null ? `q=${this.state.inputText}` : "";
@@ -99,7 +97,6 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
 
   getItems = (): void => {
     let param: string;
-    console.log(this.state.inputText);
     if (this.state.selectCategoryId === 0) {
       param =
         this.state.inputText !== "" && this.state.inputText !== null
