@@ -8,7 +8,6 @@ import api from "../../api";
 import { Category } from "../../models/category";
 import { CartItem, Item } from "../../models/item";
 import ItemCard from "../../components/itemCard/itemCard";
-import { isEqual } from "lodash";
 import { getItemsRequest } from "../../store/items/actions";
 import Waiter from "../../components/waiter/waiter";
 
@@ -187,6 +186,9 @@ export class CatalogPage extends React.Component<CatalogProps, CatalogState> {
                 </div>
               ))}
             </div>
+            {this.state.items?.length === 0 && (
+              <div className="empty__info">Ничего не найдено</div>
+            )}
             <div className="items">
               {this.state.items?.map((item, index) => (
                 <ItemCard item={item} key={index} />

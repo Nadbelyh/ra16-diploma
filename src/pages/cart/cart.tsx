@@ -36,11 +36,30 @@ export class CartPage extends React.Component<CartProps, CartState> {
     super(props);
 
     const owner = { phone: "", address: "" };
+    let cart = JSON.parse(localStorage.getItem("cart") as string);
+    if (cart === null) cart = [];
     this.state = {
-      price: this.props.cartItems.reduce((p, c) => p + c.price * c.count, 0),
-      cartItems: this.props.cartItems,
+      price: cart.reduce((p, c) => p + c.price * c.count, 0),
+      cartItems: cart,
       owner: owner,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.cartItems.length === 0) {
+      let cart = JSON.parse(localStorage.getItem("cart") as string);
+      if (cart === null) cart = [];
+      this.setState({
+        cartItems: cart,
+        price: cart.reduce((p, c) => p + c.price * c.count, 0),
+      });
+    } else {
+      this.setState({
+        cartItems: this.props.cartItems,
+        price: this.props.cartItems.reduce((p, c) => p + c.price * c.count, 0),
+      });
+      localStorage.setItem("cart", JSON.stringify(this.props.cartItems));
+    }
   }
 
   componentDidUpdate(prevProps: StateFromProps) {
@@ -53,6 +72,16 @@ export class CartPage extends React.Component<CartProps, CartState> {
   }
 
   onDeleteCartItem = (item: CartItem): void => {
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(this.state.cartItems.filter((i) => i !== item))
+    );
+    this.setState({
+      cartItems: this.state.cartItems.filter((i) => i !== item),
+      price: this.state.cartItems
+        .filter((i) => i.id !== item.id)
+        .reduce((p, c) => p + c.price * c.count, 0),
+    });
     this.props.deleteCartItem(item);
   };
 
@@ -71,6 +100,7 @@ export class CartPage extends React.Component<CartProps, CartState> {
     order.items = items;
 
     this.props.sendOrder(order);
+    localStorage.setItem("cart", JSON.stringify([]));
   };
 
   onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {

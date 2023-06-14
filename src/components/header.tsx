@@ -21,8 +21,10 @@ export class Header extends React.Component<StateFromProps, HeaderState> {
   constructor(props: StateFromProps) {
     super(props);
 
+    let cart = JSON.parse(localStorage.getItem("cart") as string);
+    if (cart === null) cart = [];
     this.state = {
-      cartCount: this.props.cartItems.length,
+      cartCount: cart.length,
       isDisplayInput: false,
       inputText: null,
     };

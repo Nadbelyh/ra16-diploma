@@ -11,6 +11,7 @@ import {
   addCartItemRequest,
   updateCartItemRequest,
 } from "../../store/cart/actions";
+import { isEqual } from "lodash";
 
 interface MatchParams {
   id: number;
@@ -45,7 +46,8 @@ type ItemPageProps = MatchProps & StateFromProps & DispatchFromProps;
 export class ItemPage extends React.Component<ItemPageProps, ItemPageState> {
   constructor(props: ItemPageProps) {
     super(props);
-
+    let cart = JSON.parse(localStorage.getItem("cart") as string);
+    if (cart === null) cart = [];
     this.state = {
       item: null,
       count: 1,
@@ -54,11 +56,25 @@ export class ItemPage extends React.Component<ItemPageProps, ItemPageState> {
 
   componentDidMount() {
     const { id } = this.props.match.params;
+    let cart = JSON.parse(localStorage.getItem("cart") as string);
+    if (cart === null) cart = [];
+    if (this.props.cartItems.length === 0) {
+      for (let i = 0; i < cart.length; i++) {
+        this.props.addCartItem(cart[i]);
+      }
+    }
+
     this.props.getItem(id).then(() => {
       this.setState({
         item: this.props.item,
       });
     });
+  }
+
+  componentDidUpdate(prevProps: ItemPageProps) {
+    if (!isEqual(this.props.cartItems, prevProps.cartItems)) {
+      localStorage.setItem("cart", JSON.stringify(this.props.cartItems));
+    }
   }
 
   onChangeCount = (isIncrement: boolean): void => {
